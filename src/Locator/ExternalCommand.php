@@ -47,12 +47,13 @@ class ExternalCommand
             );
         }
 
+        $parts = pathinfo($executable);
+
         // Make sure to add unix-style directory separators if unix-mode is enforced
         if ($forceUnix) {
-            $parts = pathinfo($executable);
-            $executable = $parts['dirname'] . '/' . $parts['filename'];
+            return $this->binDir . '/' . $parts['filename'];
         }
 
-        return $executable;
+        return $this->binDir . DIRECTORY_SEPARATOR . $parts['filename'];
     }
 }
